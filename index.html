@@ -5,26 +5,29 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="css/component.css" />
 	<link rel="stylesheet" type="text/css" href="css/animations.css" />
+	<link rel="stylesheet" type="text/css" href="css/csshake.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/basic.css" />
 	<script src="js/modernizr.custom.js"></script>
 </head>
 
 <body>
-	<div id = "pt-main" class = "pt-perspective">
-
+	
+	<img id = "title" style = "position:absolute;z-index:2;" src = "assets/imgs/title.png">
+	<div class = "info" id = "infoArea"></div>
+	<div id = "pt-main" class = "pt-perspective">	
 		<!--Area Page-->
-		<div style = "background-color:#0092C7;"class = "pt-page">
-			<input id = "BtnNorth" type = "image" src = "assets/imgs/north.png"/>
-			<input id = "BtnCenter" type = "image" src = "assets/imgs/center.png"/>
-			<input id = "BtnSouth" type = "image" src = "assets/imgs/south.png"/>
-			<input id = "BtnEast" type = "image" src = "assets/imgs/east.png"/>
+		<div style = "background-color:#FFFFFF;"class = "pt-page">			
+			<input style = "position:absolute;" id = "BtnNorth" type = "image" src = "assets/imgs/btnNorth.png"/>
+			<input style = "position:absolute;" id = "BtnCentral" type = "image" src = "assets/imgs/btnCentral.png"/>
+			<input style = "position:absolute;" id = "BtnSouth" type = "image" src = "assets/imgs/btnSouth.png"/>
+			<input style = "position:absolute;" id = "BtnEast" type = "image" src = "assets/imgs/btnEast.png"/>
 		</div>
 
 		<!--Teachers Page-->
-		<div style = "background-color:#F3E59A;" id = "teacher-index" class = "pt-page">
-			<div id = "title"></div>
-			<div id = "teachers-photo"></div>
-			<div id = "teacher-info"></div>
+		<div style = "background-color:#FFFFFF;" id = "teacher-index" class = "pt-page">
+			<div id = "BtnTeacher"></div>
+			<input style = "position:absolute;" onclick = "Main.onPreviousPage();" id = "BtnLeft" type = "image" src = "assets/imgs/arrow_l.png"/>
+			<input style = "position:absolute;" onclick = "Main.onNextPage();" id = "BtnRight" type = "image" src = "assets/imgs/arrow_r.png"/>
 		</div>
 
 	</div>

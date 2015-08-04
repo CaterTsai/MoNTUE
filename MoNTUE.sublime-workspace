@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"blow",
+				"blowUpAllBtn"
+			],
+			[
+				"blowD",
+				"blowDownAllBtn"
+			],
+			[
+				"_",
+				"_pageNum"
+			],
+			[
 				"al",
 				"text-align"
 			],
@@ -62,10 +74,6 @@
 			[
 				"json",
 				"json_encode"
-			],
-			[
-				"_",
-				"_MainCharacter"
 			],
 			[
 				"Ma",
@@ -147,7 +155,7 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 1229,
+				"buffer_size": 1773,
 				"line_ending": "Windows"
 			}
 		},
@@ -155,7 +163,7 @@
 			"file": "js/main.js",
 			"settings":
 			{
-				"buffer_size": 3400,
+				"buffer_size": 6719,
 				"line_ending": "Windows"
 			}
 		},
@@ -163,7 +171,7 @@
 			"file": "assets/north.json",
 			"settings":
 			{
-				"buffer_size": 163,
+				"buffer_size": 1490,
 				"line_ending": "Windows"
 			}
 		},
@@ -171,7 +179,7 @@
 			"file": "css/basic.css",
 			"settings":
 			{
-				"buffer_size": 668,
+				"buffer_size": 985,
 				"line_ending": "Windows"
 			}
 		}
@@ -211,7 +219,6 @@
 		"/D/xampp/htdocs/MoNTUE",
 		"/D/xampp/htdocs/MoNTUE/assets",
 		"/D/xampp/htdocs/MoNTUE/assets/imgs",
-		"/D/xampp/htdocs/MoNTUE/assets/teachers",
 		"/D/xampp/htdocs/MoNTUE/css",
 		"/D/xampp/htdocs/MoNTUE/js"
 	],
@@ -323,6 +330,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"nextPage",
+			"slow",
 			"3",
 			"pad",
 			"access_token",
@@ -394,7 +403,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -403,15 +412,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1229,
+						"buffer_size": 1773,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								996,
-								1008
+								1569,
+								1569
 							]
 						],
 						"settings":
@@ -423,7 +432,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -432,15 +441,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3400,
+						"buffer_size": 6719,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								40,
-								40
+								6409,
+								6409
 							]
 						],
 						"settings":
@@ -448,10 +457,10 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4554.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -460,15 +469,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 163,
+						"buffer_size": 1490,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								134,
-								134
+								1480,
+								1480
 							]
 						],
 						"settings":
@@ -477,10 +486,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1104.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -489,15 +498,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 668,
+						"buffer_size": 985,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								413,
-								413
+								517,
+								517
 							]
 						],
 						"settings":
@@ -505,7 +514,7 @@
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 388.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
