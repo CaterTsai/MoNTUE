@@ -1,0 +1,87 @@
+{
+	"id"	:	"01",
+	"A"		:	{
+		"intro"	:	"AAAAAAAAAAAAAA"
+	},
+	"B"		:	{
+		"intro"	:	"BBBBBBBBBBBBBB",
+		"images":	[
+			{
+				"name"	:	"長頸鹿吐舌頭",
+				"file"	:	"1.jpg"
+			},
+			{
+				"name"	:	"長頸鹿掉舌頭",
+				"file"	:	"2.jpg"
+			},
+			{
+				"name"	:	"長頸鹿吐舌頭",
+				"file"	:	"3.jpg"
+			}
+		],
+		"videos":	[
+			{
+				"name"	:	"長頸鹿踹攝影機",
+				"file"	:	"1.mp4"
+			},
+			{
+				"name"	:	"長頸鹿跳水",
+				"file"	:	"2.mp4"
+			}
+		]
+	},
+	"C"		:	{
+		"intro"	:	"CCCCCCCCCCCCCC",
+		"images":	[
+			{
+				"name"	:	"長頸鹿吐舌頭",
+				"file"	:	"1.jpg"
+			},
+			{
+				"name"	:	"長頸鹿掉舌頭",
+				"file"	:	"2.jpg"
+			},
+			{
+				"name"	:	"長頸鹿吐舌頭",
+				"file"	:	"3.jpg"
+			}
+		],
+		"videos":	[
+			{
+				"name"	:	"長頸鹿踹攝影機",
+				"file"	:	"1.mp4"
+			},
+			{
+				"name"	:	"長頸鹿跳水",
+				"file"	:	"2.mp4"
+			}
+		]
+	},
+	"D"		:	{
+		"intro"	:	"DDDDDDDDDDDDDD",
+		"images":	[
+			{
+				"name"	:	"長頸鹿吐舌頭",
+				"file"	:	"1.jpg"
+			},
+			{
+				"name"	:	"長頸鹿掉舌頭",
+				"file"	:	"2.jpg"
+			},
+			{
+				"name"	:	"長頸鹿吐舌頭",
+				"file"	:	"3.jpg"
+			}
+		],
+		"videos":	[
+			{
+				"name"	:	"長頸鹿踹攝影機",
+				"file"	:	"1.mp4"
+			},
+			{
+				"name"	:	"長頸鹿跳水",
+				"file"	:	"2.mp4"
+			}
+		]
+	}
+}

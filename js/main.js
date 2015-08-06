@@ -1,6 +1,7 @@
 //const
 var cMAX_TEACHER_NUM_IN_PAGE = 15;
 
+var cTEACHER_BTN_CENTER = 7;
 var cTEACHER_BTN_POS = new Array(	[372, 118], [670, 118], [967, 118], [1264, 118], [1562, 118],
 									[372, 432], [670, 432], [967, 432], [1264, 432], [1562, 432],
 									[372, 735], [670, 735], [967, 735], [1264, 735], [1562, 735]
@@ -9,17 +10,19 @@ var cTEACHER_BTN_POS = new Array(	[372, 118], [670, 118], [967, 118], [1264, 118
 
 var Main = (function()
 {
-	var _selectPhoto = -1
+	var _selectId = -1
+		,_selectTeacherId = -1
+		,_selectArea = ""
 		,_pageNum = 0
-		,_totalPage = 0
+		,_totalPage = 0		
 		,_TeacherBtnData = [];
 
 	function init()
 	{
-		$('#BtnNorth').on('click', {type: "north"}, onAreaClick);
-		$('#BtnCentral').on('click', {type: "central"}, onAreaClick);
-		$('#BtnSouth').on('click', {type: "south"}, onAreaClick);
-		$('#BtnEast').on('click', {type: "east"}, onAreaClick);
+		$('#BtnNorth').on('click', {area: "north"}, onAreaClick);
+		$('#BtnCentral').on('click', {area: "central"}, onAreaClick);
+		$('#BtnSouth').on('click', {area: "south"}, onAreaClick);
+		$('#BtnEast').on('click', {area: "east"}, onAreaClick);
 
 		setupTeacherPhoto();
 	}
@@ -30,56 +33,25 @@ var Main = (function()
 	function onAreaClick( event )
 	{
 		clearTeacherPage();
-		switch(event.data.type)
-		{
-			case "north":
-			{
-				$('#infoArea').append("北區基地學校");
-				break;
-			}
-			case "central":
-			{
-				$('#infoArea').append("中區基地學校");
-				break;
-			}
-			case "south":
-			{
-				$('#infoArea').append("南區基地學校");
-				break;
-			}
-			case "east":
-			{
-				$('#infoArea').append("東區基地學校");
-				break;
-			}
-		}
+		setArea(event.data.area);
 
 		PageTransitions.nextPage(
 			{animation:11, showPage:1},
 			function()
 			{
 				$.getJSON(
-					"assets/" + event.data.type + ".json",
+					"assets/" + event.data.area + ".json",
 					function( json )
 					{
 						_TeacherBtnData = json['data'];
+						_selectArea = json['area'];
 						_pageNum = 1;
+
 						_totalPage = Math.ceil(_TeacherBtnData.length / cMAX_TEACHER_NUM_IN_PAGE);
 						setTeacherBtnData(_pageNum);
-						// $.each(json['data'], function(key, value){
-							
-						// 	$('#teacherBtn_' + key).attr("src", "assets/imgs/ball-1.png");
-						// 	$('#teacherText_' + key).append(value['school'] + '<br><b>' + value['name'] + '</b> 老師');
+						blowUpAllBtn();
+						setCtrlVisable(true);
 
-						// 	$('#teacher_' + key).on(
-						// 		'click', {id: key}, 
-						// 		function(event){
-						// 			//FlipTeacherPhoto(event.data.id);
-						// 		}
-						// 	);
-						// 	$('#teacher_' + key).addClass('blowUp');
-
-						// });
 
 						// setTimeout( 
 						// 	function(){
@@ -96,7 +68,17 @@ var Main = (function()
 	//-------------------------------------
 	function clearTeacherPage()
 	{
-		$('#areaName').empty();
+		$('#infoArea').empty();
+		for(i = 0; i < cMAX_TEACHER_NUM_IN_PAGE; i++)
+		{
+			$('#teacherBtn_' + i).attr("src", "");
+			$('#teacherText_' + i).empty();
+
+			if($('#teacher_' + i).hasClass('blowUp'))
+			{
+				$('#teacher_' + i).removeClass('blowUp');
+			}
+		}
 	}
 
 	//-------------------------------------
@@ -109,40 +91,22 @@ var Main = (function()
 		for(i = 0; i < cMAX_TEACHER_NUM_IN_PAGE; i++, StartId_++)
 		{
 			$('#teacherBtn_' + i).attr("src", "");
+			$('#teacherBtn_' + i).off('click');
 			$('#teacherText_' + i).empty();
 
 			if(StartId_ < EndId_)
 			{
 				$('#teacherBtn_' + i).attr("src", "assets/imgs/ball-1.png");
-				$('#teacherText_' + i).append(_TeacherBtnData[StartId_]['school'] + '<br><b>' + _TeacherBtnData[StartId_]['name'] + '</b> 老師');	
-			}
-			
+				$('#teacherText_' + i).append(_TeacherBtnData[StartId_]['school'] + '<br><b>' + _TeacherBtnData[StartId_]['name'] + '</b> 老師');
 
+				$('#teacherBtn_' + i).on(
+					'click'
+					,{PosId : i, TeacherDataId : StartId_}
+					,onTeacherSelect
+				);
+			}
 			//$('#teacher_' + BtnId_).addClass('blowUp');
 		}
-		blowUpAllBtn();
-	}
-
-	//-------------------------------------	
-	function onNextPage()
-	{
-		_pageNum = (_pageNum + 1 > _totalPage)?1:_pageNum + 1;
-		
-		blowDownAllBtn(function(){
-			setTeacherBtnData(_pageNum);
-			blowUpAllBtn(undefined);
-		});
-	}
-
-	//-------------------------------------		
-	function onPreviousPage()
-	{
-		_pageNum = (_pageNum - 1 < 1)?_totalPage:_pageNum - 1;
-		
-		blowDownAllBtn(function(){
-			setTeacherBtnData(_pageNum);
-			blowUpAllBtn(undefined);
-		});
 	}
 
 	//-------------------------------------	
@@ -175,6 +139,158 @@ var Main = (function()
 			$('#BtnTeacher').append(NewDiv_);
 		}
 	}
+
+	//-------------------------------------	
+	function onNextPage()
+	{
+		_pageNum = (_pageNum + 1 > _totalPage)?1:_pageNum + 1;
+		
+		blowDownAllBtn(function(){
+			setTeacherBtnData(_pageNum);
+			blowUpAllBtn();
+			$('#teacher_0').off('transitionend');
+		});
+	}
+
+	//-------------------------------------		
+	function onPreviousPage()
+	{
+		_pageNum = (_pageNum - 1 < 1)?_totalPage:_pageNum - 1;
+		
+		blowDownAllBtn(function(){
+			setTeacherBtnData(_pageNum);
+			blowUpAllBtn();
+			$('#teacher_0').off('transitionend');
+		});
+	}
+
+	//-------------------------------------	
+	function onBtnUp()
+	{
+		$('#infoArea').empty();
+		PageTransitions.nextPage({animation:12, showPage:0});
+	}
+
+	//-------------------------------------	
+	function onBtnItemSelect( type )
+	{
+		$('#PopupDiv').css('visibility', 'visible');
+
+		var url_ = 'infoDisplay.php?type=' + type +'&id=' + _TeacherBtnData[_selectTeacherId]['id'] + '&area=' + _selectArea;
+		$('#PopupFrame').attr('src', url_);
+
+		//display pop-up frame
+		if($('#PopupFrame').hasClass('blowDown'))
+		{
+			$('#PopupFrame').removeClass('blowDown');
+		}
+		$('#PopupFrame').addClass('blowUp');
+
+		//display close button
+		if($('#BtnClose').hasClass('blowDown'))
+		{
+			$('#BtnClose').removeClass('blowDown');
+		}
+		$('#BtnClose').addClass('blowUp');
+	}
+
+	//-------------------------------------	
+	function onBtnClose()
+	{
+		if($('#PopupFrame').hasClass('blowUp'))
+		{
+			$('#PopupFrame').removeClass('blowUp');
+			$('#PopupFrame').addClass('blowDown');
+		}
+
+		if($('#BtnClose').hasClass('blowUp'))
+		{
+			$('#BtnClose').removeClass('blowUp');
+			$('#BtnClose').addClass('blowDown');
+		}
+
+		$('#PopupFrame').on(
+			'transitionend'
+			,function(){
+				$('#PopupFrame').attr('src', "");
+				$('#PopupDiv').css('visibility', 'hidden');
+				$('#PopupFrame').off('transitionend');
+			}
+		);	
+	}
+
+	//-------------------------------------
+	function onTeacherSelect( event )
+	{
+		_selectId = event.data.PosId;
+		_selectTeacherId = event.data.TeacherDataId;
+
+		$('#selectTeacher').css('left', cTEACHER_BTN_POS[_selectId][0] + 'px').css('top', cTEACHER_BTN_POS[_selectId][1] + 'px');
+		$('#selectImg').attr("src", $('#teacherBtn_' + _selectId).attr("src"));
+		$('#teacher_' + _selectId).hide();
+		blowDownAllBtn();
+		setCtrlVisable(false);
+
+		var transformX_ = cTEACHER_BTN_POS[cTEACHER_BTN_CENTER][0] - cTEACHER_BTN_POS[_selectId][0];
+		var transformY_ = cTEACHER_BTN_POS[cTEACHER_BTN_CENTER][1] - cTEACHER_BTN_POS[_selectId][1];
+
+		$('#selectTeacher').css('transform', 'translate(' + transformX_ +'px,' + transformY_ + 'px) scale(3.1)');
+		$('#selectTeacher').on(
+			'transitionend'
+			,function()
+			{
+				$('#selectTeacher').off('transitionend');
+				setItemBtnVisable(true);
+				setTeacherInfo(_selectTeacherId);
+			}
+		);
+	}
+
+	//-------------------------------------
+	function setCtrlVisable( value)
+	{
+		if(value)
+		{
+			//Display ctrl
+			if($('#CtrlBtnDiv').hasClass('fadeOut'))
+			{
+				$('#CtrlBtnDiv').removeClass('fadeOut');
+				$('#CtrlBtnDiv').addClass('fadeIn');
+			}
+		}
+		else
+		{
+			//Display ctrl
+			if($('#CtrlBtnDiv').hasClass('fadeIn'))
+			{
+				$('#CtrlBtnDiv').removeClass('fadeIn');
+				$('#CtrlBtnDiv').addClass('fadeOut');
+			}
+		}
+	}
+
+	//-------------------------------------
+	function setItemBtnVisable( value)
+	{
+		if(value)
+		{
+			//Display ctrl
+			if($('#itemBtnDiv').hasClass('fadeOut'))
+			{
+				$('#itemBtnDiv').removeClass('fadeOut');
+				$('#itemBtnDiv').addClass('fadeIn');
+			}
+		}
+		else
+		{
+			//Display ctrl
+			if($('#itemBtnDiv').hasClass('fadeIn'))
+			{
+				$('#itemBtnDiv').removeClass('fadeIn');
+				$('#itemBtnDiv').addClass('fadeOut');
+			}
+		}
+	}	
 
 	//-------------------------------------
 	function blowUpAllBtn( callback)
@@ -229,7 +345,42 @@ var Main = (function()
 	// 	}
 	// }
 
-	
+	//-------------------------------------
+	//Info area
+	function setArea( area)
+	{
+		$('#infoArea').empty();
+		switch(area)
+		{
+			case "north":
+			{
+				$('#infoArea').append("北區基地學校");
+				break;
+			}
+			case "central":
+			{
+				$('#infoArea').append("中區基地學校");
+				break;
+			}
+			case "south":
+			{
+				$('#infoArea').append("南區基地學校");
+				break;
+			}
+			case "east":
+			{
+				$('#infoArea').append("東區基地學校");
+				break;
+			}
+		}
+	}
+
+	//-------------------------------------
+	function setTeacherInfo( id )
+	{
+		$('#infoArea').empty();
+		$('#infoArea').append(_TeacherBtnData[id]['school'] + '<br><b>' + _TeacherBtnData[id]['name'] + '</b> 老師');
+	}
 
 	//-------------------------------------
 	//resize
@@ -250,9 +401,19 @@ var Main = (function()
 		$('#BtnEast').css('left', (0.739 * $winWidth_).toString() + 'px').css('top', (0.39 * $winHeight_).toString() + 'px');
 
 		//arrow btn
+		$('#BtnUp').css('left', (0.4849 * $winWidth_).toString() + 'px').css('top', (0.0462 * $winHeight_).toString() + 'px');
 		$('#BtnLeft').css('left', (0.1468 * $winWidth_).toString() + 'px').css('top', (0.4593 * $winHeight_).toString() + 'px');
 		$('#BtnRight').css('left', (0.9346 * $winWidth_).toString() + 'px').css('top', (0.4593 * $winHeight_).toString() + 'px');
 
+		//item btn
+		$('#BtnIntro').css('left', (0.6094 * $winWidth_).toString() + 'px').css('top', (0.1435 * $winHeight_).toString() + 'px');
+		$('#BtnDesign').css('left', (0.2344 * $winWidth_).toString() + 'px').css('top', (0.27 * $winHeight_).toString() + 'px');
+		$('#BtnRecord').css('left', (0.689 * $winWidth_).toString() + 'px').css('top', (0.6176 * $winHeight_).toString() + 'px');
+		$('#BtnFeedback').css('left', (0.3078 * $winWidth_).toString() + 'px').css('top', (0.7454 * $winHeight_).toString() + 'px');
+
+		//popup frame
+		$('#PopupFrame').css('left', (0.1 * $winWidth_).toString() + 'px').css('top', (0.1 * $winHeight_).toString() + 'px');
+		$('#BtnClose').css('left', (0.88698 * $winWidth_).toString() + 'px').css('top', (0.0269 * $winHeight_).toString() + 'px');
 	}
 
 	//-------------------------------------
@@ -260,8 +421,11 @@ var Main = (function()
 	return {
 		init : init,
 		resize : resize,
+		onBtnUp : onBtnUp,
 		onNextPage : onNextPage,
-		onPreviousPage : onPreviousPage
+		onPreviousPage : onPreviousPage,
+		onBtnItemSelect : onBtnItemSelect,
+		onBtnClose : onBtnClose
 	};
 })();
 

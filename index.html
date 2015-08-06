@@ -11,9 +11,15 @@
 </head>
 
 <body>
-	
+
 	<img id = "title" style = "position:absolute;z-index:2;" src = "assets/imgs/title.png">
 	<div class = "info" id = "infoArea"></div>
+
+	<div id = "PopupDiv" class = "backplane">
+		<iframe id = "PopupFrame" class = "popupFrame"></iframe>
+		<input id = "BtnClose" onclick = "Main.onBtnClose();" class = "closeBtn" type = "image" src = "assets/imgs/btnClose.png"/>
+	</div>
+
 	<div id = "pt-main" class = "pt-perspective">	
 		<!--Area Page-->
 		<div style = "background-color:#FFFFFF;"class = "pt-page">			
@@ -25,11 +31,25 @@
 
 		<!--Teachers Page-->
 		<div style = "background-color:#FFFFFF;" id = "teacher-index" class = "pt-page">
+			<!--Teachers button page-->
 			<div id = "BtnTeacher"></div>
-			<input style = "position:absolute;" onclick = "Main.onPreviousPage();" id = "BtnLeft" type = "image" src = "assets/imgs/arrow_l.png"/>
-			<input style = "position:absolute;" onclick = "Main.onNextPage();" id = "BtnRight" type = "image" src = "assets/imgs/arrow_r.png"/>
-		</div>
+			<div id = "CtrlBtnDiv" style = "position:absolute;" class = "fadeOut">
+				<input style = "position:absolute;" onclick = "Main.onBtnUp();" id = "BtnUp" type = "image" src = "assets/imgs/arrow_up.png"/>
+				<input style = "position:absolute;" onclick = "Main.onPreviousPage();" id = "BtnLeft" type = "image" src = "assets/imgs/arrow_l.png"/>
+				<input style = "position:absolute;" onclick = "Main.onNextPage();" id = "BtnRight" type = "image" src = "assets/imgs/arrow_r.png"/>
+			</div>
 
+			<!--Teacher select page-->
+			<div id = "selectTeacher" class = "selectTeacher">
+				<img id = "selectImg" class = "selectImg"/>
+			</div>
+			<div id = "itemBtnDiv" style = "position:absolute;" class = "fadeOut">
+				<input style = "position:absolute;" onclick = "Main.onBtnItemSelect('A');" id = "BtnIntro" type = "image" src = "assets/imgs/btnIntro.png"/>
+				<input style = "position:absolute;" onclick = "Main.onBtnItemSelect('B');" id = "BtnDesign" type = "image" src = "assets/imgs/btnDesign.png"/>
+				<input style = "position:absolute;" onclick = "Main.onBtnItemSelect('C');" id = "BtnRecord" type = "image" src = "assets/imgs/btnRecord.png"/>
+				<input style = "position:absolute;" onclick = "Main.onBtnItemSelect('D');" id = "BtnFeedback" type = "image" src = "assets/imgs/btnFeedback.png"/>
+			</div>
+		</div>
 	</div>
 
 	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>

@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"win",
+				"winHeight_"
+			],
+			[
+				"t",
+				"transitionend"
+			],
+			[
+				"_s",
+				"_selectArea"
+			],
+			[
 				"blow",
 				"blowUpAllBtn"
 			],
@@ -152,34 +164,34 @@
 	"buffers":
 	[
 		{
-			"file": "index.html",
+			"file": "infoDisplay.php",
 			"settings":
 			{
-				"buffer_size": 1773,
+				"buffer_size": 1206,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "js/main.js",
+			"file": "js/info.js",
 			"settings":
 			{
-				"buffer_size": 6719,
+				"buffer_size": 1241,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "assets/north.json",
+			"file": "css/info.css",
 			"settings":
 			{
-				"buffer_size": 1490,
+				"buffer_size": 287,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "css/basic.css",
+			"file": "assets/teachers/north/01/01.json",
 			"settings":
 			{
-				"buffer_size": 985,
+				"buffer_size": 1121,
 				"line_ending": "Windows"
 			}
 		}
@@ -218,15 +230,19 @@
 	[
 		"/D/xampp/htdocs/MoNTUE",
 		"/D/xampp/htdocs/MoNTUE/assets",
-		"/D/xampp/htdocs/MoNTUE/assets/imgs",
+		"/D/xampp/htdocs/MoNTUE/assets/teachers",
+		"/D/xampp/htdocs/MoNTUE/assets/teachers/north/01",
 		"/D/xampp/htdocs/MoNTUE/css",
 		"/D/xampp/htdocs/MoNTUE/js"
 	],
 	"file_history":
 	[
-		"/D/xampp/htdocs/MoNTUE/assets/north.json",
-		"/D/xampp/htdocs/MoNTUE/js/pagetransitions.js",
 		"/D/xampp/htdocs/MoNTUE/css/basic.css",
+		"/D/xampp/htdocs/MoNTUE/teacherdata.php",
+		"/D/xampp/htdocs/MoNTUE/teacherdata.html",
+		"/D/xampp/htdocs/MoNTUE/assets/north.json",
+		"/D/xampp/htdocs/MoNTUE/assets/central.json",
+		"/D/xampp/htdocs/MoNTUE/js/pagetransitions.js",
 		"/D/xampp/htdocs/MoNTUE/assets/east.json",
 		"/D/xampp/htdocs/MoNTUE/assets/center.json",
 		"/D/xampp/htdocs/MoNTUE/assets/south.json",
@@ -330,6 +346,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"infoArea",
+			"_selectPhoto",
+			"陳育婷",
+			"北",
 			"nextPage",
 			"slow",
 			"3",
@@ -389,6 +409,8 @@
 		"regex": true,
 		"replace_history":
 		[
+			"育婷陳",
+			"中",
 			"760",
 			"570",
 			"_HostPassword",
@@ -408,25 +430,81 @@
 			[
 				{
 					"buffer": 0,
-					"file": "index.html",
+					"file": "infoDisplay.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1773,
+						"buffer_size": 1206,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1569,
-								1569
+								986,
+								986
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "js/info.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1033,
+								1033
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 42.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "css/info.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 287,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								287,
+								287
 							]
 						],
 						"settings":
 						{
 							"auto_name": "",
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -436,88 +514,31 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "js/main.js",
+					"buffer": 3,
+					"file": "assets/teachers/north/01/01.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6719,
+						"buffer_size": 1121,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6409,
-								6409
+								404,
+								404
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 4554.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "assets/north.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1490,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1480,
-								1480
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1104.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "css/basic.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 985,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								517,
-								517
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 388.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -562,7 +583,7 @@
 	"project": "MoNTUE.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":

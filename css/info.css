@@ -1,0 +1,23 @@
+
+.displayDiv{
+	position:absolute;
+	width:1175px;
+	height:672px;
+
+	border:3px solid #FFFFFF;
+}
+
+
+/*------------------------
+Animation
+--------------------------*/
+
+.fadeIn {
+	opacity:1;    
+    transition: 300ms ease-in-out;
+}
+
+.fadeOut {
+	opacity:0;
+    transition: 300ms ease-in-out;	
+}
