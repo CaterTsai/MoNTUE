@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"vi",
+				"videos"
+			],
+			[
+				"app",
+				"appendChild"
+			],
+			[
+				"img",
+				"imgPhoto_"
+			],
+			[
 				"win",
 				"winHeight_"
 			],
@@ -167,7 +179,7 @@
 			"file": "infoDisplay.php",
 			"settings":
 			{
-				"buffer_size": 1206,
+				"buffer_size": 1910,
 				"line_ending": "Windows"
 			}
 		},
@@ -175,7 +187,7 @@
 			"file": "js/info.js",
 			"settings":
 			{
-				"buffer_size": 1241,
+				"buffer_size": 6649,
 				"line_ending": "Windows"
 			}
 		},
@@ -183,7 +195,7 @@
 			"file": "css/info.css",
 			"settings":
 			{
-				"buffer_size": 287,
+				"buffer_size": 927,
 				"line_ending": "Windows"
 			}
 		},
@@ -191,7 +203,7 @@
 			"file": "assets/teachers/north/01/01.json",
 			"settings":
 			{
-				"buffer_size": 1121,
+				"buffer_size": 1324,
 				"line_ending": "Windows"
 			}
 		}
@@ -231,13 +243,16 @@
 		"/D/xampp/htdocs/MoNTUE",
 		"/D/xampp/htdocs/MoNTUE/assets",
 		"/D/xampp/htdocs/MoNTUE/assets/teachers",
+		"/D/xampp/htdocs/MoNTUE/assets/teachers/north",
 		"/D/xampp/htdocs/MoNTUE/assets/teachers/north/01",
+		"/D/xampp/htdocs/MoNTUE/assets/teachers/north/01/B",
 		"/D/xampp/htdocs/MoNTUE/css",
 		"/D/xampp/htdocs/MoNTUE/js"
 	],
 	"file_history":
 	[
 		"/D/xampp/htdocs/MoNTUE/css/basic.css",
+		"/D/xampp/htdocs/MoNTUE/infoDisplay.php",
 		"/D/xampp/htdocs/MoNTUE/teacherdata.php",
 		"/D/xampp/htdocs/MoNTUE/teacherdata.html",
 		"/D/xampp/htdocs/MoNTUE/assets/north.json",
@@ -425,7 +440,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -434,26 +449,27 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1206,
+						"buffer_size": 1910,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								986,
-								986
+								1369,
+								1380
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": -0.0,
+						"translation.y": 76.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -462,26 +478,27 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1241,
+						"buffer_size": 6649,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1033,
-								1033
+								2655,
+								2655
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 42.0,
+						"translation.y": 1652.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -490,15 +507,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 287,
+						"buffer_size": 927,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								287,
-								287
+								366,
+								366
 							]
 						],
 						"settings":
@@ -506,7 +523,7 @@
 							"auto_name": "",
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
-						"translation.x": 0.0,
+						"translation.x": -0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -519,26 +536,27 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1121,
+						"buffer_size": 1324,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								404,
-								404
+								669,
+								669
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

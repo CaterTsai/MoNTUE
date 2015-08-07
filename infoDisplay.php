@@ -10,6 +10,10 @@
 <head>
 	<title></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
 	<link rel="stylesheet" type="text/css" href="css/info.css" />
 	<script type="text/javascript">
 		var gSelectType = <?php echo "\"$type\";"?>;
@@ -19,18 +23,22 @@
 </head>
 <body bgcolor="#606060">
 	
-	<input id = "BtnText" style = "position:absolute;" type = "image" src = "assets/imgs/btnText.png"/>
-	<input id = "BtnImages" style = "position:absolute;" type = "image" src = "assets/imgs/btnImages.png"/>
-	<input id = "BtnVideos" style = "position:absolute;" type = "image" src = "assets/imgs/btnVideos.png"/>
+	<input id = "BtnText" onclick = "Main.changeDisplay('text');" style = "position:absolute;" type = "image" src = "assets/imgs/btnText.png"/>
+	<input id = "BtnImages" onclick = "Main.changeDisplay('images');" style = "position:absolute;" type = "image" src = "assets/imgs/btnImages.png"/>
+	<input id = "BtnVideos" onclick = "Main.changeDisplay('videos');" style = "position:absolute;" type = "image" src = "assets/imgs/btnVideos.png"/>
 
 	<!--Display Area-->
 	<div id = "display" class = "displayDiv">
-		<div id = "display_text"></div>
-		<div id = "display_images"></div>
-		<div id = "display_vidoes"></div>
+		<div id = "info_text" style = "overflow:auto;" class = "infoDiv fadeOut"></div>
+		<div id = "info_images" class = "infoDiv fadeOut"></div>
+		<div id = "info_videos" class = "infoDiv fadeOut"></div>
 	</div>
 
-	<script type = "text/javascript" src = "js/jquery-1.11.3.min.js"/>
-	<script type = "text/javascript" src = "js/info.js"/>
+	<input id = "BtnArrowLeft" style = "position:absolute;" class = "fadeOut" type = "image" src = "assets/imgs/arrowLeft_w.png"/>
+	<input id = "BtnArrowRight" style = "position:absolute;" class = "fadeOut" type = "image" src = "assets/imgs/arrowRight_w.png"/>
+
+	<script type = "text/javascript" src = "js/jquery-1.11.3.min.js"></script>
+	<script type = "text/javascript" src = "slick/slick.min.js"/></script>
+	<script type = "text/javascript" src = "js/info.js"/></script>
 </body>
 </html>
