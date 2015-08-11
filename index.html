@@ -10,10 +10,13 @@
 	<script src="js/modernizr.custom.js"></script>
 </head>
 
-<body>
+<body background="assets/imgs/background.jpg">
 
 	<img id = "title" style = "position:absolute;z-index:2;" src = "assets/imgs/title.png">
 	<div class = "info" id = "infoArea"></div>
+	<div id = "photoArea" class = "photoDiv">
+		<img id = "photo" class = "photo"/>
+	</div>
 
 	<div id = "PopupDiv" class = "backplane">
 		<iframe id = "PopupFrame" class = "popupFrame"></iframe>
@@ -22,7 +25,7 @@
 
 	<div id = "pt-main" class = "pt-perspective">	
 		<!--Area Page-->
-		<div style = "background-color:#FFFFFF;"class = "pt-page">			
+		<div class = "pt-page">			
 			<input style = "position:absolute;" id = "BtnNorth" type = "image" src = "assets/imgs/btnNorth.png"/>
 			<input style = "position:absolute;" id = "BtnCentral" type = "image" src = "assets/imgs/btnCentral.png"/>
 			<input style = "position:absolute;" id = "BtnSouth" type = "image" src = "assets/imgs/btnSouth.png"/>
@@ -30,27 +33,32 @@
 		</div>
 
 		<!--Teachers Page-->
-		<div style = "background-color:#FFFFFF;" id = "teacher-index" class = "pt-page">
+		<div id = "teacher-index" class = "pt-page">
 			<!--Teachers button page-->
 			<div id = "BtnTeacher"></div>
 			<div id = "CtrlBtnDiv" style = "position:absolute;" class = "fadeOut">
-				<input style = "position:absolute;" onclick = "Main.onBtnUp();" id = "BtnUp" type = "image" src = "assets/imgs/arrow_up.png"/>
-				<input style = "position:absolute;" onclick = "Main.onPreviousPage();" id = "BtnLeft" type = "image" src = "assets/imgs/arrow_l.png"/>
-				<input style = "position:absolute;" onclick = "Main.onNextPage();" id = "BtnRight" type = "image" src = "assets/imgs/arrow_r.png"/>
+				<!--<input style = "position:absolute;" onclick = "Main.onBtnUp();" id = "BtnUp" type = "image" src = "assets/imgs/arrow_up.png"/>-->
+				<input style = "position:absolute;" onclick = "Main.onPreviousPage();" id = "BtnUp" type = "image" src = "assets/imgs/arrowUp_b.png"/>
+				<input style = "position:absolute;" onclick = "Main.onNextPage();" id = "BtnDown" type = "image" src = "assets/imgs/arrowDown_b.png"/>
 			</div>
 
 			<!--Teacher select page-->
 			<div id = "selectTeacher" class = "selectTeacher">
 				<img id = "selectImg" class = "selectImg"/>
 			</div>
-			<div id = "itemBtnDiv" style = "position:absolute;" class = "fadeOut">
+			<div id = "itemBtnDiv" style = "position:absolute;visibility: hidden;" class = "fadeOut">
 				<input style = "position:absolute;" onclick = "Main.onBtnItemSelect('A');" id = "BtnIntro" type = "image" src = "assets/imgs/btnIntro.png"/>
 				<input style = "position:absolute;" onclick = "Main.onBtnItemSelect('B');" id = "BtnDesign" type = "image" src = "assets/imgs/btnDesign.png"/>
 				<input style = "position:absolute;" onclick = "Main.onBtnItemSelect('C');" id = "BtnRecord" type = "image" src = "assets/imgs/btnRecord.png"/>
 				<input style = "position:absolute;" onclick = "Main.onBtnItemSelect('D');" id = "BtnFeedback" type = "image" src = "assets/imgs/btnFeedback.png"/>
 			</div>
+			
 		</div>
 	</div>
+
+	<!--Page Ctrl Btn-->
+	<input style = "position:absolute;" class = "fadeOut" onclick = "Main.onBtnHome();"id = "BtnHome" type = "image" src = "assets/imgs/btnHome.png"/>
+	<input style = "position:absolute;" class = "fadeOut" id = "BtnBack" type = "image" src = "assets/imgs/btnBack.png"/>
 
 	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/pagetransitions.js"></script>

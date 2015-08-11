@@ -1,10 +1,10 @@
 //const
-var cMAX_TEACHER_NUM_IN_PAGE = 15;
-
-var cTEACHER_BTN_CENTER = 7;
-var cTEACHER_BTN_POS = new Array(	[372, 118], [670, 118], [967, 118], [1264, 118], [1562, 118],
-									[372, 432], [670, 432], [967, 432], [1264, 432], [1562, 432],
-									[372, 735], [670, 735], [967, 735], [1264, 735], [1562, 735]
+var cMAX_TEACHER_NUM_IN_PAGE = 12;
+var cTEACHER_NUM_IN_ROW = 4;
+var cTEACHER_BTN_CENTER = [951, 424];
+var cTEACHER_BTN_POS = new Array(	[413, 111], [769, 111], [1125, 111], [1480, 111],
+									[413, 424], [769, 424], [1125, 424], [1480, 424],
+									[413, 728], [769, 728], [1125, 728], [1480, 728]
 	);
 
 
@@ -28,8 +28,7 @@ var Main = (function()
 	}
 
 	//-------------------------------------
-	//Teacher Button
-	
+	//Teacher Button	
 	function onAreaClick( event )
 	{
 		clearTeacherPage();
@@ -50,8 +49,13 @@ var Main = (function()
 						_totalPage = Math.ceil(_TeacherBtnData.length / cMAX_TEACHER_NUM_IN_PAGE);
 						setTeacherBtnData(_pageNum);
 						blowUpAllBtn();
-						setCtrlVisable(true);
+						setBtnVisable('CtrlBtnDiv', true);
 
+						//Display page ctrl btn
+						setBtnVisable('BtnHome', true);
+						setBtnVisable('BtnBack', true);
+
+						$('#BtnBack').on('click', onBtnHome);
 
 						// setTimeout( 
 						// 	function(){
@@ -96,7 +100,8 @@ var Main = (function()
 
 			if(StartId_ < EndId_)
 			{
-				$('#teacherBtn_' + i).attr("src", "assets/imgs/ball-1.png");
+				var ballId_ = Math.floor(i / cTEACHER_NUM_IN_ROW) + 1;
+				$('#teacherBtn_' + i).attr("src", "assets/imgs/ball-" + ballId_.toString() + ".png");
 				$('#teacherText_' + i).append(_TeacherBtnData[StartId_]['school'] + '<br><b>' + _TeacherBtnData[StartId_]['name'] + '</b> 老師');
 
 				$('#teacherBtn_' + i).on(
@@ -165,10 +170,43 @@ var Main = (function()
 	}
 
 	//-------------------------------------	
-	function onBtnUp()
+	function onBtnHome()
 	{
 		$('#infoArea').empty();
+		$('#photo').attr('src', "");
 		PageTransitions.nextPage({animation:12, showPage:0});
+
+		setBtnVisable('BtnHome', false);
+		setBtnVisable('BtnBack', false);
+
+		setBtnVisable('CtrlBtnDiv', false);
+
+		setBtnVisable('itemBtnDiv', false);
+		$('#selectImg').attr("src", "");
+		$('#selectTeacher').attr('style', "");
+		//$('#teacher_' + _selectId).show();
+		//$('#teacher_' + _selectId).css('opacity', 1);
+
+		blowDownAllBtn();
+	}
+
+	//-------------------------------------	
+	function onBtnBack()
+	{
+		setArea(_selectArea);
+		$('#photo').attr('src', "");
+
+		setBtnVisable('itemBtnDiv', false);
+		$('#selectImg').attr("src", "");
+		$('#selectTeacher').attr('style', "");
+		//$('#teacher_' + _selectId).show();
+		//$('#teacher_' + _selectId).css('opacity', 1);
+
+		setBtnVisable('CtrlBtnDiv', true);
+
+		blowUpAllBtn();
+
+		$('#BtnBack').on('click', onBtnHome);
 	}
 
 	//-------------------------------------	
@@ -224,15 +262,15 @@ var Main = (function()
 	{
 		_selectId = event.data.PosId;
 		_selectTeacherId = event.data.TeacherDataId;
-
+		
 		$('#selectTeacher').css('left', cTEACHER_BTN_POS[_selectId][0] + 'px').css('top', cTEACHER_BTN_POS[_selectId][1] + 'px');
 		$('#selectImg').attr("src", $('#teacherBtn_' + _selectId).attr("src"));
-		$('#teacher_' + _selectId).hide();
 		blowDownAllBtn();
-		setCtrlVisable(false);
+		
+		setBtnVisable('CtrlBtnDiv', false);
 
-		var transformX_ = cTEACHER_BTN_POS[cTEACHER_BTN_CENTER][0] - cTEACHER_BTN_POS[_selectId][0];
-		var transformY_ = cTEACHER_BTN_POS[cTEACHER_BTN_CENTER][1] - cTEACHER_BTN_POS[_selectId][1];
+		var transformX_ = cTEACHER_BTN_CENTER[0] - cTEACHER_BTN_POS[_selectId][0];
+		var transformY_ = cTEACHER_BTN_CENTER[1] - cTEACHER_BTN_POS[_selectId][1];
 
 		$('#selectTeacher').css('transform', 'translate(' + transformX_ +'px,' + transformY_ + 'px) scale(3.1)');
 		$('#selectTeacher').on(
@@ -240,57 +278,44 @@ var Main = (function()
 			,function()
 			{
 				$('#selectTeacher').off('transitionend');
-				setItemBtnVisable(true);
+				setBtnVisable('itemBtnDiv', true);
 				setTeacherInfo(_selectTeacherId);
+				setTeacherPhoto(_selectTeacherId);
+
+				$('#BtnBack').off('click');
+				$('#BtnBack').on('click', onBtnBack);
 			}
 		);
 	}
 
 	//-------------------------------------
-	function setCtrlVisable( value)
+	function setBtnVisable( name, value)
 	{
 		if(value)
 		{
-			//Display ctrl
-			if($('#CtrlBtnDiv').hasClass('fadeOut'))
+			$('#' + name).css('visibility', 'visible');
+			//visable ctrl
+			if($('#' + name).hasClass('fadeOut'))
 			{
-				$('#CtrlBtnDiv').removeClass('fadeOut');
-				$('#CtrlBtnDiv').addClass('fadeIn');
+				$('#' + name).removeClass('fadeOut');
+				$('#' + name).addClass('fadeIn');
 			}
 		}
 		else
-		{
-			//Display ctrl
-			if($('#CtrlBtnDiv').hasClass('fadeIn'))
+		{			
+			//invisable ctrl
+			if($('#' + name).hasClass('fadeIn'))
 			{
-				$('#CtrlBtnDiv').removeClass('fadeIn');
-				$('#CtrlBtnDiv').addClass('fadeOut');
-			}
-		}
-	}
+				$('#' + name).removeClass('fadeIn');
+				$('#' + name).addClass('fadeOut');
 
-	//-------------------------------------
-	function setItemBtnVisable( value)
-	{
-		if(value)
-		{
-			//Display ctrl
-			if($('#itemBtnDiv').hasClass('fadeOut'))
-			{
-				$('#itemBtnDiv').removeClass('fadeOut');
-				$('#itemBtnDiv').addClass('fadeIn');
+				$('#' + name).on('transitionend', function(){
+					$('#' + name).css('visibility', 'hidden');
+					$('#' + name).off('transitionend');
+				});
 			}
-		}
-		else
-		{
-			//Display ctrl
-			if($('#itemBtnDiv').hasClass('fadeIn'))
-			{
-				$('#itemBtnDiv').removeClass('fadeIn');
-				$('#itemBtnDiv').addClass('fadeOut');
-			}
-		}
-	}	
+		}	
+	}
 
 	//-------------------------------------
 	function blowUpAllBtn( callback)
@@ -329,21 +354,6 @@ var Main = (function()
 		
 	}
 
-	//-------------------------------------
-	// function blowEachBtn( id, max )
-	// {
-	// 	if(id < max)
-	// 	{
-	// 		$('#teacher_' + id).addClass('blowUp');	
-	// 		$('#teacherBtn_' + id).addClass('shake-constant');
-	// 		setTimeout( 
-	// 			function(){
-	// 				blowEachBtn(id+1, max);
-	// 			},
-	// 			100
-	// 		);
-	// 	}
-	// }
 
 	//-------------------------------------
 	//Info area
@@ -383,6 +393,13 @@ var Main = (function()
 	}
 
 	//-------------------------------------
+	function setTeacherPhoto()
+	{
+		var photoPath_ = "assets/teachers/" + _selectArea + "/" + _TeacherBtnData[_selectTeacherId]['id'] + "/photo.jpg";
+		$('#photo').attr('src', photoPath_);
+	}
+
+	//-------------------------------------
 	//resize
 	function resize()
 	{
@@ -391,8 +408,10 @@ var Main = (function()
 
 		//title
 		$('#title').css('left', (0.03 * $winWidth_).toString() + 'px').css('top', (0.048 * $winHeight_).toString() + 'px');
-
 		$('#infoArea').css('left', (0.034 * $winWidth_).toString() + 'px').css('top', (0.154 * $winHeight_).toString() + 'px');
+		$('#photoArea').css('left', (0.02969 * $winWidth_).toString() + 'px').css('top', (0.21944 * $winHeight_).toString() + 'px');
+		$('#BtnHome').css('left', (0.032 * $winWidth_).toString() + 'px').css('top', (0.3935 * $winHeight_).toString() + 'px');
+		$('#BtnBack').css('left', (0.0682 * $winWidth_).toString() + 'px').css('top', (0.3935 * $winHeight_).toString() + 'px');
 
 		//Area Btn
 		$('#BtnNorth').css('left', (0.19375 * $winWidth_).toString() + 'px').css('top', (0.39 * $winHeight_).toString() + 'px');
@@ -401,9 +420,10 @@ var Main = (function()
 		$('#BtnEast').css('left', (0.739 * $winWidth_).toString() + 'px').css('top', (0.39 * $winHeight_).toString() + 'px');
 
 		//arrow btn
-		$('#BtnUp').css('left', (0.4849 * $winWidth_).toString() + 'px').css('top', (0.0462 * $winHeight_).toString() + 'px');
-		$('#BtnLeft').css('left', (0.1468 * $winWidth_).toString() + 'px').css('top', (0.4593 * $winHeight_).toString() + 'px');
-		$('#BtnRight').css('left', (0.9346 * $winWidth_).toString() + 'px').css('top', (0.4593 * $winHeight_).toString() + 'px');
+		$('#BtnUp').css('left', (0.926 * $winWidth_).toString() + 'px').css('top', (0.12 * $winHeight_).toString() + 'px');
+		$('#BtnDown').css('left', (0.926 * $winWidth_).toString() + 'px').css('top', (0.7986 * $winHeight_).toString() + 'px');
+		//$('#BtnLeft').css('left', (0.1468 * $winWidth_).toString() + 'px').css('top', (0.4593 * $winHeight_).toString() + 'px');
+		//$('#BtnRight').css('left', (0.9346 * $winWidth_).toString() + 'px').css('top', (0.4593 * $winHeight_).toString() + 'px');
 
 		//item btn
 		$('#BtnIntro').css('left', (0.6094 * $winWidth_).toString() + 'px').css('top', (0.1435 * $winHeight_).toString() + 'px');
@@ -413,7 +433,7 @@ var Main = (function()
 
 		//popup frame
 		$('#PopupFrame').css('left', (0.1 * $winWidth_).toString() + 'px').css('top', (0.1 * $winHeight_).toString() + 'px');
-		$('#BtnClose').css('left', (0.88698 * $winWidth_).toString() + 'px').css('top', (0.0269 * $winHeight_).toString() + 'px');
+		$('#BtnClose').css('left', (0.84375 * $winWidth_).toString() + 'px').css('top', (0.14537 * $winHeight_).toString() + 'px');
 	}
 
 	//-------------------------------------
@@ -421,7 +441,8 @@ var Main = (function()
 	return {
 		init : init,
 		resize : resize,
-		onBtnUp : onBtnUp,
+		onBtnHome : onBtnHome,
+		onBtnBack : onBtnBack,
 		onNextPage : onNextPage,
 		onPreviousPage : onPreviousPage,
 		onBtnItemSelect : onBtnItemSelect,

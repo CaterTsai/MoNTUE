@@ -23,6 +23,7 @@ var PageTransitions = (function() {
         animations = {
             max: 67
         },
+        CallbackPage = 0,
         AnimEndCallback = function(){}
         ;
 
@@ -62,6 +63,12 @@ var PageTransitions = (function() {
 
 		var $currPage = $pages.eq( current );
 		if(options.showPage){
+
+			if(options.showPage == current)
+			{
+				return false;
+			}
+
 			if( options.showPage <= pagesCount - 1 ) {
 				current = options.showPage;
 			}
@@ -376,6 +383,7 @@ var PageTransitions = (function() {
 
 		if( callback )
 		{
+			CallbackPage = options.showPage;
 			AnimEndCallback = callback;
 		}
 
@@ -387,7 +395,12 @@ var PageTransitions = (function() {
 		resetPage( $outpage, $inpage );
 		isAnimating = false;
 
-		AnimEndCallback();
+
+		if(current == CallbackPage)
+		{
+			AnimEndCallback();
+		}
+		
 	}
 
 	function resetPage( $outpage, $inpage ) {

@@ -44,6 +44,13 @@
 /*------------------------
 Text
 --------------------------*/
+.titleText{
+	font-family:KozMinPro;
+	font-size:35px;
+	color:#F2F2F2;
+	text-align: center;
+}
+
 .IntroText{
 	font-family:KozMinPro;
 	font-size:25px;

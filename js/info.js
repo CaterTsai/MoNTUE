@@ -10,11 +10,24 @@ var Main = (function()
 	//-------------------------------------
 	function init()
 	{
+		//setting title
+		switch(gSelectType)
+		{
+			case 'A':
+				$('#title').text("教師介紹");break;
+			case 'B':
+				$('#title').text("課程設計");break;
+			case 'C':
+				$('#title').text("執行紀錄");break;
+			case 'D':
+				$('#title').text("反思回饋");break;
+		}
+
 		$.getJSON(
 			_folderPath + gTeacherId + '.json',
 			function( json )
 			{
-				if(gSelectArea != "A")
+				if(gSelectType != "A")
 				{
 					_introData = json[gSelectType]["intro"];
 					_imgData = json[gSelectType]["images"];
@@ -31,6 +44,18 @@ var Main = (function()
 
 					changeDisplay('text');	
 				}
+				else
+				{
+					_introData = json[gSelectType]["intro"];
+					setupIntro();
+
+					$('#BtnText').hide();
+					$('#BtnImages').hide();
+					$('#BtnVideos').hide();
+
+					changeDisplay('text');
+
+				}
 			}
 		);
 	}
@@ -42,8 +67,18 @@ var Main = (function()
 		Text_.id = "IntroText";
 		Text_.className = "IntroText";
 
+		if(gSelectType == "A")
+		{
+			var PersonalPhoto_ = document.createElement('img');
+			PersonalPhoto_.className = "personalPhoto";
+			PersonalPhoto_.src = _folderPath + "photo.jpg";
+			$('#info_text').append(PersonalPhoto_);
+		}
+
 		$('#info_text').append(Text_);
 		$('#IntroText').append(_introData);
+
+
 	}
 
 	//-------------------------------------
@@ -101,7 +136,8 @@ var Main = (function()
 
 			var video_ = document.createElement('video');
 			video_.id = 'video_' + i;
-			video_.controls = true;
+			video_.loop = true;
+			//video_.controls = true;
 			video_.className = 'media';
 
 			var text_ = document.createElement('p');
@@ -118,6 +154,25 @@ var Main = (function()
 			$('#video_' + i).attr('src', _folderPath + gSelectType + '/videos/' + _videoData[i]['file']);
 		}
 
+		//set event
+		$('#info_videos').on(
+			'beforeChange', 
+			function(event, slick, currentSlide, nextSlide){
+				var video_ = document.getElementById('video_' + currentSlide);
+				video_.pause();
+			}
+		);
+
+		$('#info_videos').on(
+			'afterChange', 
+			function(event, slick, currentSlide, nextSlide)
+			{
+				var video_ = document.getElementById('video_' + currentSlide);
+				video_.currentTime = 0;
+				video_.play();
+			}
+		);
+
 		$('#info_videos').slick({
 			arrows:false
 			,speed: 500
@@ -133,62 +188,101 @@ var Main = (function()
 			return;
 		}
 
-		//fade out the type that display defore
-		if($('#info_text').hasClass('fadeIn'))
+		if(_nowDisplayType == 'videos')
 		{
-			$('#info_text').removeClass('fadeIn');
-			$('#info_text').addClass('fadeOut');
-		}
-		else if($('#info_images').hasClass('fadeIn'))
-		{
-			$('#info_images').removeClass('fadeIn');
-			$('#info_images').addClass('fadeOut');
-		}
-		else if($('#info_videos').hasClass('fadeIn'))
-		{
-			$('#info_videos').removeClass('fadeIn');
-			$('#info_videos').addClass('fadeOut');
+			stopVideo();
 		}
 
+		//fade out the type that display defore
+		setVisable('info_' + _nowDisplayType, false);
+
 		//fade in the display type
+		setVisable('info_' + type, true);
+
+		//setup 
 		switch(type)
 		{
 			case 'text':
 			{
-				if($('#info_text').hasClass('fadeOut'))
-				{
-					$('#info_text').removeClass('fadeOut');
-					$('#info_text').addClass('fadeIn');
-				}
-				setArrowBtnVisible(false);
+				setVisable('BtnArrowLeft', false);
+				setVisable('BtnArrowRight', false);
+				//setArrowBtnVisible(false);
 				break;
 			}
 			case 'images':
 			{
-				if($('#info_images').hasClass('fadeOut'))
-				{
-					$('#info_images').removeClass('fadeOut');
-					$('#info_images').addClass('fadeIn');
-				}
-				setArrowBtnVisible(true);
+				setVisable('BtnArrowLeft', true);
+				setVisable('BtnArrowRight', true);
+				//setArrowBtnVisible(true);
 				setArrowBtnEvent(type);
+				resetImages();
 				break;
 			}
 			case 'videos':
 			{
-				if($('#info_videos').hasClass('fadeOut'))
-				{
-					$('#info_videos').removeClass('fadeOut');
-					$('#info_videos').addClass('fadeIn');
-				}
-				setArrowBtnVisible(true);
+				setVisable('BtnArrowLeft', true);
+				setVisable('BtnArrowRight', true);
+				//setArrowBtnVisible(true);
 				setArrowBtnEvent(type);
+				resetVideos();
 				break;
 			}
 		}
 		_nowDisplayType = type;
 	}
 
+	//-------------------------------------
+	function setVisable( name, value)
+	{
+		if(value)
+		{
+			$('#' + name).css('visibility', 'visible');
+			//visable ctrl
+			if($('#' + name).hasClass('fadeOut'))
+			{
+				$('#' + name).removeClass('fadeOut');
+				$('#' + name).addClass('fadeIn');
+			}
+		}
+		else
+		{			
+			//invisable ctrl
+			if($('#' + name).hasClass('fadeIn'))
+			{
+				$('#' + name).removeClass('fadeIn');
+				$('#' + name).addClass('fadeOut');
+
+				$('#' + name).on('transitionend', function(){
+					$('#' + name).css('visibility', 'hidden');
+					$('#' + name).off('transitionend');
+				});
+			}
+		}	
+	}
+
+	//-------------------------------------
+	//Display method
+	function resetImages()
+	{
+		$('#info_images').slick('slickGoTo', 0, true);
+	}
+
+	//-------------------------------------	
+	function resetVideos()
+	{
+		$('#info_videos').slick('slickGoTo', 0, true);
+		//var video_ = document.getElementById('video_0');
+
+	}
+
+	//-------------------------------------	
+	function stopVideo()
+	{
+		var NowSlide_ = $('#info_videos').slick('slickCurrentSlide');
+		var video_ = document.getElementById('video_' + NowSlide_);
+		video_.currentTime = 0;
+		video_.pause();
+	}
 
 	//-------------------------------------
 	//Arrow Button
@@ -254,7 +348,7 @@ var Main = (function()
 		$('#BtnArrowLeft').css('left', (0.1787 * $winWidth_).toString() + 'px').css('top', (0.483 * $winHeight_).toString() + 'px');
 		$('#BtnArrowRight').css('left', (0.874 * $winWidth_).toString() + 'px').css('top', (0.483 * $winHeight_).toString() + 'px');
 
-		$('#display').css('left', (0.1533 * $winWidth_).toString() + 'px').css('top', (0.1153 * $winHeight_).toString() + 'px');
+		$('#display').css('left', (0.1533 * $winWidth_).toString() + 'px').css('top', (0.147 * $winHeight_).toString() + 'px');
 	}
 
 	//-------------------------------------
