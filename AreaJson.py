@@ -4,7 +4,8 @@ import os
 import json
 import re
 
-AreaList_ = ['north', 'central', 'south', 'east']
+#AreaList_ = ['north', 'central', 'south', 'east']
+AreaList_ = ['central']
 ItemList_ = ['A', 'B', 'C', 'D']
 
 #---------------------
@@ -17,7 +18,7 @@ def AreaJsonCreate():
 
             for name in dirnames:
                 Split_ = name.split('-')
-                os.rename(os.path.join(dirpath, name), os.path.join(dirpath, Split_[0]))
+                #os.rename(os.path.join(dirpath, name), os.path.join(dirpath, Split_[0]))
             break;
 
         data = []
@@ -97,11 +98,11 @@ def TeacherJsonCreate():
         for (dirpath, dirnames, filenames) in os.walk('./' + AreaName):
             folderList.extend(dirnames)
             break;
-
         
         for folder in folderList:
             path = './' + AreaName + '/' + folder + '/';
-            data = {'id':folder}
+            folderid = folder.split('-')[0]
+            data = {'id':folderid}            
 
             #A
             Adata = {}
@@ -129,7 +130,7 @@ def TeacherJsonCreate():
             Ddata['videos'] = getVideos(path + 'D/videos/');
             data['D'] = Ddata
 
-            output = open(path + folder +'.json', 'w+')
+            output = open(path + folderid +'.json', 'w+')
             output.write(json.dumps(data, indent=4, separators=(',', ': '), ensure_ascii=False))
             output.close()
             
@@ -137,7 +138,7 @@ def TeacherJsonCreate():
         print 'Area :' + AreaName + ' teacher json create[OK]\n'
 
 if __name__ == '__main__':
-    #AreaJsonCreate()
+    AreaJsonCreate()
     TeacherJsonCreate()
 
     

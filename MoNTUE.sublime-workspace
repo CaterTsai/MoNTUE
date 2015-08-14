@@ -199,7 +199,7 @@
 			"file": "js/info.js",
 			"settings":
 			{
-				"buffer_size": 8534,
+				"buffer_size": 8991,
 				"line_ending": "Windows"
 			}
 		},
@@ -207,7 +207,7 @@
 			"file": "js/main.js",
 			"settings":
 			{
-				"buffer_size": 12549,
+				"buffer_size": 12545,
 				"line_ending": "Windows"
 			}
 		}
@@ -364,6 +364,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"setVisable",
+			"setArrowBtnEvent",
+			"slick",
 			"changeDisplay",
 			"opacity",
 			"show",
@@ -482,7 +485,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -491,15 +494,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8534,
+						"buffer_size": 8991,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5042,
-								5042
+								4631,
+								4631
 							]
 						],
 						"settings":
@@ -508,7 +511,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3980.0,
+						"translation.y": 3690.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -520,15 +523,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12549,
+						"buffer_size": 12545,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7931,
-								7314
+								7304,
+								7304
 							]
 						],
 						"settings":
@@ -536,11 +539,11 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
-						"translation.y": 5490.0,
+						"translation.x": 0.0,
+						"translation.y": 1753.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

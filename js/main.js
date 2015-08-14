@@ -302,7 +302,7 @@ var Main = (function()
 			}
 		}
 		else
-		{			
+		{
 			//invisable ctrl
 			if($('#' + name).hasClass('fadeIn'))
 			{
@@ -314,7 +314,7 @@ var Main = (function()
 					$('#' + name).off('transitionend');
 				});
 			}
-		}	
+		}
 	}
 
 	//-------------------------------------
