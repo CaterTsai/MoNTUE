@@ -188,18 +188,10 @@
 	"buffers":
 	[
 		{
-			"file": "css/info.css",
-			"settings":
-			{
-				"buffer_size": 1020,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "infoDisplay.php",
 			"settings":
 			{
-				"buffer_size": 1952,
+				"buffer_size": 2069,
 				"line_ending": "Windows"
 			}
 		},
@@ -207,7 +199,15 @@
 			"file": "js/info.js",
 			"settings":
 			{
-				"buffer_size": 7784,
+				"buffer_size": 8534,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js/main.js",
+			"settings":
+			{
+				"buffer_size": 12549,
 				"line_ending": "Windows"
 			}
 		}
@@ -245,16 +245,15 @@
 	"expanded_folders":
 	[
 		"/D/xampp/htdocs/MoNTUE",
-		"/D/xampp/htdocs/MoNTUE/assets/teachers/north/01",
 		"/D/xampp/htdocs/MoNTUE/js"
 	],
 	"file_history":
 	[
 		"/D/xampp/htdocs/MoNTUE/index.html",
+		"/D/xampp/htdocs/MoNTUE/css/info.css",
 		"/D/xampp/htdocs/MoNTUE/js/main.js",
 		"/D/xampp/htdocs/MoNTUE/css/basic.css",
 		"/D/xampp/htdocs/MoNTUE/assets/north.json",
-		"/D/xampp/htdocs/MoNTUE/css/info.css",
 		"/D/xampp/htdocs/MoNTUE/js/pagetransitions.js",
 		"/D/xampp/htdocs/MoNTUE/infoDisplay.php",
 		"/D/xampp/htdocs/MoNTUE/assets/teachers/north/01/01.json",
@@ -365,6 +364,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"changeDisplay",
 			"opacity",
 			"show",
 			"hide",
@@ -453,53 +453,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "css/info.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1020,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								603,
-								603
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 342.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "infoDisplay.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1952,
+						"buffer_size": 2069,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1433,
-								1440
+								1767,
+								1767
 							]
 						],
 						"settings":
@@ -515,20 +486,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "js/info.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7784,
+						"buffer_size": 8534,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1683,
-								1683
+								5042,
+								5042
 							]
 						],
 						"settings":
@@ -537,10 +508,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1299.0,
+						"translation.y": 3980.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12549,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7931,
+								7314
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 5490.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
