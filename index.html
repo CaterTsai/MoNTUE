@@ -4,6 +4,7 @@
 	<title></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="css/component.css" />
+
 	<link rel="stylesheet" type="text/css" href="css/animations.css" />
 	<link rel="stylesheet" type="text/css" href="css/csshake.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/basic.css" />
@@ -15,8 +16,9 @@
 	<img id = "title" style = "position:absolute;z-index:2;" src = "assets/imgs/title.png">
 	<div class = "info" id = "infoArea"></div>
 	<div id = "photoArea" class = "photoDiv">
-		<img id = "photo" class = "photo"/>
+		<img id = "photo" class = "photo" onerror = "Main.onPhotoError();">
 	</div>
+	<video id = "LoopVideo" onclick = "Main.onLoopVideoClick();"class = "LoopVideo fadeInSlow" src = "assets/videos/loop.mp4" autoplay loop></video>
 
 	<div id = "PopupDiv" class = "backplane">
 		<iframe id = "PopupFrame" class = "popupFrame"></iframe>
@@ -61,6 +63,8 @@
 	<input style = "position:absolute;" class = "fadeOut" id = "BtnBack" type = "image" src = "assets/imgs/btnBack.png"/>
 
 	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquerymobile-swipeupdown.js"></script>
 	<script src="js/pagetransitions.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>

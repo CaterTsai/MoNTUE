@@ -24,9 +24,9 @@
 <body bgcolor="#606060">
 	
 	<p id = "title" class = "titleText"></p>
-	<input id = "BtnText" onclick = "Main.changeDisplay('text');" style = "position:absolute;" type = "image" src = "assets/imgs/btnText.png"/>
-	<input id = "BtnImages" onclick = "Main.changeDisplay('images');" style = "position:absolute;" type = "image" src = "assets/imgs/btnImages.png"/>
-	<input id = "BtnVideos" onclick = "Main.changeDisplay('videos');" style = "position:absolute;" type = "image" src = "assets/imgs/btnVideos.png"/>
+	<img id = "BtnText" onclick = "Main.changeDisplay('text');" style = "position:absolute;" type = "image"/>
+	<img id = "BtnImages" onclick = "Main.changeDisplay('images');" style = "position:absolute;" type = "image"/>
+	<img id = "BtnVideos" onclick = "Main.changeDisplay('videos');" style = "position:absolute;" type = "image"/>
 
 	<!--Display Area-->
 	<div id = "display" class = "displayDiv">
@@ -39,6 +39,7 @@
 	<input id = "BtnArrowRight" style = "position:absolute;visibility: hidden;" class = "fadeOut" type = "image" src = "assets/imgs/arrowRight_w.png"/>
 
 	<script type = "text/javascript" src = "js/jquery-1.11.3.min.js"></script>
+	<script type = "text/javascript" src = "js/jquery.nicescroll.min.js"></script>
 	<script type = "text/javascript" src = "slick/slick.min.js"/></script>
 	<script type = "text/javascript" src = "js/info.js"/></script>
 </body>

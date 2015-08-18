@@ -5,7 +5,7 @@ import json
 import re
 
 #AreaList_ = ['north', 'central', 'south', 'east']
-AreaList_ = ['central']
+AreaList_ = ['north']
 ItemList_ = ['A', 'B', 'C', 'D']
 
 #---------------------
@@ -18,7 +18,7 @@ def AreaJsonCreate():
 
             for name in dirnames:
                 Split_ = name.split('-')
-                #os.rename(os.path.join(dirpath, name), os.path.join(dirpath, Split_[0]))
+
             break;
 
         data = []
@@ -36,7 +36,7 @@ def AreaJsonCreate():
 
         if(len(data) > 0):
             output = open(AreaName + '.json', 'w+')
-            output.write(json.dumps({'area' : 'central', 'data' : data}, indent=4, separators=(',', ': '), ensure_ascii=False))
+            output.write(json.dumps({'area' : AreaName, 'data' : data}, indent=4, separators=(',', ': '), ensure_ascii=False))
             output.close()
 
         print 'Area :' + AreaName + ' area json create[OK]\n'
@@ -67,9 +67,23 @@ def getImages(path):
         data = {}
         if filename.endswith(".jpg") or filename.endswith(".png") or filename.endswith(".JPG") or filename.endswith(".PNG"):
             Name = re.split('\.|-', filename)
-            if len(Name) == 3:
-                data['file'] = (Name[0].zfill(2) + '.' + Name[2]).decode('big5').encode('utf-8')
-                data['name'] = Name[1].decode('big5').encode('utf-8')
+
+            try:
+                value = int(Name[0][0])
+            except ValueError:
+                print "[WARNING] Name format failed :" + path + filename + '\n'
+                continue
+            
+            if len(Name) >= 3:
+                data['file'] = (Name[0].zfill(2) + '.' + Name[len(Name) - 1]).decode('big5').encode('utf-8')
+                sName = ""
+                for idx in range(1, len(Name) - 1):
+                    sName += Name[idx].decode('big5').encode('utf-8') + "-"
+                data['name'] = sName[0:-1]
+                result.append(data)
+            elif len(Name) == 2:
+                data['file'] = (Name[0].zfill(2) + '.' + Name[1]).decode('big5').encode('utf-8')
+                data['name'] = Name[0].decode('big5').encode('utf-8')
                 result.append(data)
             else :
                 print "[WARNING] Name format failed :" + path + filename + '\n'
@@ -84,9 +98,23 @@ def getVideos(path):
         data = {}
         if filename.endswith(".mp4") or filename.endswith(".MP4"):
             Name = re.split('\.|-', filename)
-            if len(Name) == 3:
-                data['file'] = Name[0].zfill(2) + '.' + Name[2]
-                data['name'] = Name[1].decode('big5').encode('utf-8')
+
+            try:
+                value = Name[0]
+            except ValueError:
+                print "[WARNING] Name format failed :" + path + filename + '\n'
+                continue
+            
+            if len(Name) >= 3:
+                data['file'] = (Name[0].zfill(2) + '.' + Name[len(Name) - 1]).decode('big5').encode('utf-8')
+                sName = ""
+                for idx in range(1, len(Name) - 1):
+                    sName += Name[idx].decode('big5').encode('utf-8') + "-"
+                data['name'] = sName[0:-1]
+                result.append(data)
+            elif len(Name) == 2:
+                data['file'] = (Name[0].zfill(2) + '.' + Name[1]).decode('big5').encode('utf-8')
+                data['name'] = Name[0].decode('big5').encode('utf-8')
                 result.append(data)
             else :
                 print "[WARNING] Name format failed :" + path + filename + '\n'

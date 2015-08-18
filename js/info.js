@@ -1,4 +1,6 @@
 
+var cBUTTON_POSITION = new Array([41, 123], [41, 211], [41, 300]);
+
 var Main = (function()
 {
 	var _folderPath = 'assets/teachers/' + gSelectArea + '/' + gTeacherId + '/'
@@ -29,31 +31,63 @@ var Main = (function()
 			{
 				if(gSelectType != "A")
 				{
+					var initType_ = ""
+						btnId_ = 0;
+
 					_introData = json[gSelectType]["intro"];
 					_imgData = json[gSelectType]["images"];
 					_videoData = json[gSelectType]["videos"];
 
 					//Setup intro
-					setupIntro();
+					if(_introData != "")
+					{
+						setupIntro();
+						$('#BtnText').attr('src', './assets/imgs/btnText_' + gSelectType + '.png');
+						$('#BtnText').css('left', cBUTTON_POSITION[btnId_][0].toString() + 'px');
+						$('#BtnText').css('top', cBUTTON_POSITION[btnId_][1].toString() + 'px');
+						initType_ = "text"
+						btnId_++;
+					}
 
 					//Setup images info
-					setupImageInfo();
+					if(_imgData.length > 0)
+					{
+						setupImageInfo();
+						$('#BtnImages').attr('src', './assets/imgs/btnImages_' + gSelectType + '.png');
+						$('#BtnImages').css('left', cBUTTON_POSITION[btnId_][0].toString() + 'px');
+						$('#BtnImages').css('top', cBUTTON_POSITION[btnId_][1].toString() + 'px');
+
+						if(initType_ == "")
+						{
+							initType_ = "images"
+						}
+						btnId_++;
+					}
 
 					//Setup videos info
-					setupVideoInfo();
+					if(_videoData.length > 0)
+					{
+						setupVideoInfo();
+						$('#BtnVideos').attr('src', './assets/imgs/btnVideos_' + gSelectType + '.png');	
+						$('#BtnVideos').css('left', cBUTTON_POSITION[btnId_][0].toString() + 'px');
+						$('#BtnVideos').css('top', cBUTTON_POSITION[btnId_][1].toString() + 'px');
 
-					changeDisplay('text');	
+						if(initType_ == "")
+						{
+							initType_ = "videos"
+						}
+						btnId_++;
+					}					
+
+					changeDisplay(initType_);	
 				}
 				else
 				{
 					_introData = json[gSelectType]["intro"];
 					setupIntro();
 
-					$('#BtnText').hide();
-					$('#BtnImages').hide();
-					$('#BtnVideos').hide();
-
 					changeDisplay('text');
+
 				}
 			}
 		);
@@ -71,12 +105,15 @@ var Main = (function()
 			var PersonalPhoto_ = document.createElement('img');
 			PersonalPhoto_.className = "personalPhoto";
 			PersonalPhoto_.src = _folderPath + "photo.jpg";
+			PersonalPhoto_.onerror = function()
+			{
+				PersonalPhoto_.style.visibility = "hidden";
+			}
 			$('#info_text').append(PersonalPhoto_);
 		}
 
 		$('#info_text').append(Text_);
 		$('#IntroText').append(_introData);
-
 
 	}
 
@@ -156,7 +193,7 @@ var Main = (function()
 			$('#video_' + i).attr('src', _folderPath + gSelectType + '/videos/' + _videoData[i]['file']);
 		}
 
-		if(_imgData.length > 0)
+		if(_videoData.length > 0)
 		{
 			//set event
 			$('#info_videos').on(
@@ -200,18 +237,18 @@ var Main = (function()
 		}
 
 		//fade out the type that display defore
-		setVisable('info_' + _nowDisplayType, false);
+		setVisible('info_' + _nowDisplayType, false);
 
 		//fade in the display type
-		setVisable('info_' + type, true);
+		setVisible('info_' + type, true);
 
 				
 		if((type == 'videos' && _videoData.length <= 0) || type == 'images' && _imgData.length <= 0)
 		{
 			if(_nowDisplayType == 'videos' || _nowDisplayType == 'images')
 			{
-				setVisable('BtnArrowLeft', false);
-				setVisable('BtnArrowRight', false);
+				setVisible('BtnArrowLeft', false);
+				setVisible('BtnArrowRight', false);
 			}
 			_nowDisplayType = type
 			return;
@@ -223,15 +260,16 @@ var Main = (function()
 		{
 			case 'text':
 			{
-				setVisable('BtnArrowLeft', false);
-				setVisable('BtnArrowRight', false);
+				setVisible('BtnArrowLeft', false);
+				setVisible('BtnArrowRight', false);
 				//setArrowBtnVisible(false);
+				$('#info_text').niceScroll({cursorborder:"",boxzoom:false});
 				break;
 			}
 			case 'images':
 			{
-				setVisable('BtnArrowLeft', true);
-				setVisable('BtnArrowRight', true);
+				setVisible('BtnArrowLeft', _imgData.length > 1);
+				setVisible('BtnArrowRight', _imgData.length > 1);
 				//setArrowBtnVisible(true);
 				setArrowBtnEvent(type);
 				resetImages();
@@ -239,8 +277,8 @@ var Main = (function()
 			}
 			case 'videos':
 			{
-				setVisable('BtnArrowLeft', true);
-				setVisable('BtnArrowRight', true);
+				setVisible('BtnArrowLeft', _videoData.length > 1);
+				setVisible('BtnArrowRight', _videoData.length > 1);
 				//setArrowBtnVisible(true);
 				setArrowBtnEvent(type);
 				resetVideos();
@@ -252,12 +290,12 @@ var Main = (function()
 	}
 
 	//-------------------------------------
-	function setVisable( name, value)
+	function setVisible( name, value)
 	{
 		if(value)
 		{
 			$('#' + name).css('visibility', 'visible');
-			//visable ctrl
+			//visible ctrl
 			if($('#' + name).hasClass('fadeOut'))
 			{
 				$('#' + name).removeClass('fadeOut');
@@ -266,7 +304,7 @@ var Main = (function()
 		}
 		else
 		{			
-			//invisable ctrl
+			//invisible ctrl
 			if($('#' + name).hasClass('fadeIn'))
 			{
 				$('#' + name).removeClass('fadeIn');
@@ -293,9 +331,15 @@ var Main = (function()
 	//-------------------------------------	
 	function resetVideos()
 	{
-		if(_videoData.length > 0)
+		if(_videoData.length > 1)
 		{
 			$('#info_videos').slick('slickGoTo', 0, true);	
+		}
+		else if(_videoData.length == 1)
+		{
+			var video_ = document.getElementById('video_0');
+			video_.currentTime = 0;
+			video_.play();
 		}
 	}
 
@@ -368,9 +412,9 @@ var Main = (function()
 			,$winWidth_ = $(window).width();
 
 		//Area Btn
-		$('#BtnText').css('left', (0.02694 * $winWidth_).toString() + 'px').css('top', (0.1307 * $winHeight_).toString() + 'px');
-		$('#BtnImages').css('left', (0.02694 * $winWidth_).toString() + 'px').css('top', (0.2334 * $winHeight_).toString() + 'px');
-		$('#BtnVideos').css('left', (0.02694 * $winWidth_).toString() + 'px').css('top', (0.338 * $winHeight_).toString() + 'px');
+		// $('#BtnText').css('left', (0.02694 * $winWidth_).toString() + 'px').css('top', (0.1307 * $winHeight_).toString() + 'px');
+		// $('#BtnImages').css('left', (0.02694 * $winWidth_).toString() + 'px').css('top', (0.2334 * $winHeight_).toString() + 'px');
+		// $('#BtnVideos').css('left', (0.02694 * $winWidth_).toString() + 'px').css('top', (0.338 * $winHeight_).toString() + 'px');
 
 		$('#BtnArrowLeft').css('left', (0.1787 * $winWidth_).toString() + 'px').css('top', (0.483 * $winHeight_).toString() + 'px');
 		$('#BtnArrowRight').css('left', (0.874 * $winWidth_).toString() + 'px').css('top', (0.483 * $winHeight_).toString() + 'px');

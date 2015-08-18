@@ -6,11 +6,15 @@ var cTEACHER_BTN_POS = new Array(	[413, 111], [769, 111], [1125, 111], [1480, 11
 									[413, 424], [769, 424], [1125, 424], [1480, 424],
 									[413, 728], [769, 728], [1125, 728], [1480, 728]
 	);
-
-
+var cTIMEOUT_CHECK_M = 1;
+var cTIMEOUT_LIMIT_M = 1;
 var Main = (function()
 {
 	var _selectId = -1
+		,_isIdle = true
+		,_isSelectItem = false
+		,_timer = 0
+		,_IdleHandle
 		,_selectTeacherId = -1
 		,_selectArea = ""
 		,_pageNum = 0
@@ -19,72 +23,43 @@ var Main = (function()
 
 	function init()
 	{
-		$('#BtnNorth').on('click', {area: "north"}, onAreaClick);
-		$('#BtnCentral').on('click', {area: "central"}, onAreaClick);
-		$('#BtnSouth').on('click', {area: "south"}, onAreaClick);
-		$('#BtnEast').on('click', {area: "east"}, onAreaClick);
-
 		setupTeacherPhoto();
 	}
 
-	//-------------------------------------
-	//Teacher Button	
-	function onAreaClick( event )
+	function idleCheck()
 	{
-		clearTeacherPage();
-		setArea(event.data.area);
-
-		PageTransitions.nextPage(
-			{animation:11, showPage:1},
-			function()
-			{
-				$.getJSON(
-					"assets/" + event.data.area + ".json",
-					function( json )
-					{
-						_TeacherBtnData = json['data'];
-						_selectArea = json['area'];
-						_pageNum = 1;
-
-						_totalPage = Math.ceil(_TeacherBtnData.length / cMAX_TEACHER_NUM_IN_PAGE);
-						setTeacherBtnData(_pageNum);
-						blowUpAllBtn();
-						setBtnVisable('CtrlBtnDiv', true);
-
-						//Display page ctrl btn
-						setBtnVisable('BtnHome', true);
-						setBtnVisable('BtnBack', true);
-
-						$('#BtnBack').on('click', onBtnHome);
-
-						// setTimeout( 
-						// 	function(){
-						// 		blowEachBtn(0, json['data'].length);
-						// 	},
-						// 	100
-						// );
-					}
-				);
-			}
-		);
-	}
-
-	//-------------------------------------
-	function clearTeacherPage()
-	{
-		$('#infoArea').empty();
-		for(i = 0; i < cMAX_TEACHER_NUM_IN_PAGE; i++)
+		if(_isIdle)
 		{
-			$('#teacherBtn_' + i).attr("src", "");
-			$('#teacherText_' + i).empty();
-
-			if($('#teacher_' + i).hasClass('blowUp'))
-			{
-				$('#teacher_' + i).removeClass('blowUp');
-			}
+			return;
 		}
+
+		if(_timer >= cTIMEOUT_LIMIT_M)
+		{
+			_isIdle = true;
+
+			if(_isSelectItem)
+			{
+				onBtnClose();
+			}
+
+			if(_selectArea != "")
+			{
+				onBtnHome();
+			}
+
+			setVisibleSlow('LoopVideo', true);
+			var video_ = document.getElementById('LoopVideo');
+			video_.currentTime = 0;
+			video_.play();
+			
+			setIdleCheck(false);
+		}
+		_timer += 1;
+
 	}
 
+	//-------------------------------------
+	//Setting function
 	//-------------------------------------
 	function setTeacherBtnData( pageNum )
 	{
@@ -145,6 +120,75 @@ var Main = (function()
 		}
 	}
 
+	//-------------------------------------
+	function clearTeacherPage()
+	{
+		$('#infoArea').empty();
+		for(i = 0; i < cMAX_TEACHER_NUM_IN_PAGE; i++)
+		{
+			$('#teacherBtn_' + i).attr("src", "");
+			$('#teacherText_' + i).empty();
+
+			if($('#teacher_' + i).hasClass('blowUp'))
+			{
+				$('#teacher_' + i).removeClass('blowUp');
+			}
+		}
+	}
+
+	//-------------------------------------	
+	//Event
+	function onLoopVideoClick()
+	{
+		setVisibleSlow('LoopVideo', false);
+		_isIdle = false;
+
+		setTimeout(function(){
+			setAreaBtn(true);
+			var video_ = document.getElementById('LoopVideo');
+			video_.currentTime = 0;
+			video_.pause();
+
+			setIdleCheck(true);
+		}, 800);
+	}
+
+	//-------------------------------------	
+	function onAreaClick( event )
+	{
+		clearTeacherPage();
+		setArea(event.data.area);
+
+		PageTransitions.nextPage(
+			{animation:11, showPage:1},
+			function()
+			{
+				$.getJSON(
+					"assets/" + event.data.area + ".json",
+					function( json )
+					{
+						_TeacherBtnData = json['data'];
+						_selectArea = json['area'];
+						_pageNum = 1;
+
+						_totalPage = Math.ceil(_TeacherBtnData.length / cMAX_TEACHER_NUM_IN_PAGE);
+						setTeacherBtnData(_pageNum);
+						
+						setVisible('CtrlBtnDiv', true);
+
+						//Display page ctrl btn
+						setVisible('BtnHome', true);
+						setVisible('BtnBack', true);
+
+						$('#BtnBack').on('click', onBtnHome);
+
+						blowUpAllBtn();
+					}
+				);
+			}
+		);
+	}
+
 	//-------------------------------------	
 	function onNextPage()
 	{
@@ -174,18 +218,17 @@ var Main = (function()
 	{
 		$('#infoArea').empty();
 		$('#photo').attr('src', "");
+		_selectArea = "";
 		PageTransitions.nextPage({animation:12, showPage:0});
 
-		setBtnVisable('BtnHome', false);
-		setBtnVisable('BtnBack', false);
+		setVisible('BtnHome', false);
+		setVisible('BtnBack', false);
 
-		setBtnVisable('CtrlBtnDiv', false);
+		setVisible('CtrlBtnDiv', false);
 
-		setBtnVisable('itemBtnDiv', false);
+		setVisible('itemBtnDiv', false);
 		$('#selectImg').attr("src", "");
 		$('#selectTeacher').attr('style', "");
-		//$('#teacher_' + _selectId).show();
-		//$('#teacher_' + _selectId).css('opacity', 1);
 
 		blowDownAllBtn();
 	}
@@ -196,13 +239,12 @@ var Main = (function()
 		setArea(_selectArea);
 		$('#photo').attr('src', "");
 
-		setBtnVisable('itemBtnDiv', false);
+		setVisible('itemBtnDiv', false);
 		$('#selectImg').attr("src", "");
 		$('#selectTeacher').attr('style', "");
-		//$('#teacher_' + _selectId).show();
-		//$('#teacher_' + _selectId).css('opacity', 1);
 
-		setBtnVisable('CtrlBtnDiv', true);
+
+		setVisible('CtrlBtnDiv', true);
 
 		blowUpAllBtn();
 
@@ -230,6 +272,8 @@ var Main = (function()
 			$('#BtnClose').removeClass('blowDown');
 		}
 		$('#BtnClose').addClass('blowUp');
+
+		_isSelectItem = true;
 	}
 
 	//-------------------------------------	
@@ -254,7 +298,9 @@ var Main = (function()
 				$('#PopupDiv').css('visibility', 'hidden');
 				$('#PopupFrame').off('transitionend');
 			}
-		);	
+		);
+
+		_isSelectItem = false;
 	}
 
 	//-------------------------------------
@@ -267,7 +313,7 @@ var Main = (function()
 		$('#selectImg').attr("src", $('#teacherBtn_' + _selectId).attr("src"));
 		blowDownAllBtn();
 		
-		setBtnVisable('CtrlBtnDiv', false);
+		setVisible('CtrlBtnDiv', false);
 
 		var transformX_ = cTEACHER_BTN_CENTER[0] - cTEACHER_BTN_POS[_selectId][0];
 		var transformY_ = cTEACHER_BTN_CENTER[1] - cTEACHER_BTN_POS[_selectId][1];
@@ -278,7 +324,7 @@ var Main = (function()
 			,function()
 			{
 				$('#selectTeacher').off('transitionend');
-				setBtnVisable('itemBtnDiv', true);
+				setVisible('itemBtnDiv', true);
 				setTeacherInfo(_selectTeacherId);
 				setTeacherPhoto(_selectTeacherId);
 
@@ -289,7 +335,44 @@ var Main = (function()
 	}
 
 	//-------------------------------------
-	function setBtnVisable( name, value)
+	//Switch
+	function setAreaBtn(value)
+	{
+		if(value)
+		{
+			$('#BtnNorth').on('click', {area: "north"}, onAreaClick);
+			$('#BtnCentral').on('click', {area: "central"}, onAreaClick);
+			$('#BtnSouth').on('click', {area: "south"}, onAreaClick);
+			$('#BtnEast').on('click', {area: "east"}, onAreaClick);
+		}
+		else
+		{
+			$('#BtnNorth').off('click');
+			$('#BtnCentral').off('click');
+			$('#BtnSouth').off('click');
+			$('#BtnEast').off('click');
+		}
+	}
+
+	//-------------------------------------
+	function setIdleCheck(value)
+	{
+		if(value)
+		{
+			_IdleHandle = setInterval(idleCheck, 60000);// 1 minute
+		    $(document).on("click", function() {
+	        	_timer = 0;
+		    });
+		}
+		else
+		{
+			window.clearInterval(_IdleHandle);
+			$(document).off("click");
+		}
+	}
+
+	//-------------------------------------
+	function setVisible( name, value)
 	{
 		if(value)
 		{
@@ -316,8 +399,38 @@ var Main = (function()
 			}
 		}
 	}
+	//-------------------------------------
+	function setVisibleSlow( name, value)
+	{
+		if(value)
+		{
+			$('#' + name).css('visibility', 'visible');
+			//visable ctrl
+			if($('#' + name).hasClass('fadeOutSlow'))
+			{
+				$('#' + name).removeClass('fadeOutSlow');
+				$('#' + name).addClass('fadeInSlow');
+			}
+		}
+		else
+		{
+			//invisable ctrl
+			if($('#' + name).hasClass('fadeInSlow'))
+			{
+				$('#' + name).removeClass('fadeInSlow');
+				$('#' + name).addClass('fadeOutSlow');
+
+				$('#' + name).on('transitionend', function(){
+					$('#' + name).css('visibility', 'hidden');
+					$('#' + name).off('transitionend');
+				});
+			}
+		}
+	}
+
 
 	//-------------------------------------
+	// Teacher Animation
 	function blowUpAllBtn( callback)
 	{
 		for(i = 0; i < cMAX_TEACHER_NUM_IN_PAGE; i++)
@@ -327,12 +440,18 @@ var Main = (function()
 				$('#teacher_' + i).removeClass('blowDown');
 			}
 			$('#teacher_' + i).addClass('blowUp');
+
+			// $('#teacherBtn_' + i).addClass('shake');
+			// $('#teacherBtn_' + i).addClass('shake-constant');
+			// $('#teacherBtn_' + i).addClass('shake-slow');
 		}
 
 		if(callback != undefined)
 		{
 			$('#teacher_0').on('transitionend', callback);
 		}
+
+		setSwipeEvent(true);
 	}
 
 	//-------------------------------------
@@ -343,17 +462,55 @@ var Main = (function()
 			if($('#teacher_' + i).hasClass('blowUp'))
 			{
 				$('#teacher_' + i).removeClass('blowUp');
+
 			}
 			$('#teacher_' + i).addClass('blowDown');
+
+			// $('#teacherBtn_' + i).removeClass('shake');
+			// $('#teacherBtn_' + i).removeClass('shake-constant');
+			// $('#teacherBtn_' + i).removeClass('shake-slow');
 		}
 
 		if(callback != undefined)
 		{
 			$('#teacher_0').on('transitionend', callback);
 		}
-		
+		setSwipeEvent(false);
 	}
 
+	//-------------------------------------
+	function blowEachBtn( id, max )
+	{
+		if(id < max)
+		{
+			$('#teacher_' + id).addClass('blowUp');	
+			$('#teacherBtn_' + id).addClass('shake');
+			$('#teacherBtn_' + id).addClass('shake-constant');
+			$('#teacherBtn_' + id).addClass('shake-slow');
+			setTimeout( 
+				function(){
+					blowEachBtn(id+1, max);
+				},
+				100
+			);
+		}
+	}
+
+	//-------------------------------------
+	//Touch Event
+	function setSwipeEvent( value )
+	{
+		if(value)
+		{
+			$('body').on('swipeup', onPreviousPage);
+			$('body').on('swipedown', onNextPage);
+		}
+		else
+		{
+			$('body').off('swipeup');
+			$('body').off('swipedown');
+		}
+	}
 
 	//-------------------------------------
 	//Info area
@@ -395,8 +552,18 @@ var Main = (function()
 	//-------------------------------------
 	function setTeacherPhoto()
 	{
+		if($('#photo').is(":hidden"))
+		{
+			$('#photo').show();
+		}
 		var photoPath_ = "assets/teachers/" + _selectArea + "/" + _TeacherBtnData[_selectTeacherId]['id'] + "/photo.jpg";
 		$('#photo').attr('src', photoPath_);
+	}
+
+	//-------------------------------------
+	function onPhotoError()
+	{
+		$('#photo').hide();
 	}
 
 	//-------------------------------------
@@ -441,12 +608,14 @@ var Main = (function()
 	return {
 		init : init,
 		resize : resize,
+		onLoopVideoClick : onLoopVideoClick,
 		onBtnHome : onBtnHome,
 		onBtnBack : onBtnBack,
 		onNextPage : onNextPage,
 		onPreviousPage : onPreviousPage,
 		onBtnItemSelect : onBtnItemSelect,
-		onBtnClose : onBtnClose
+		onBtnClose : onBtnClose,
+		onPhotoError : onPhotoError
 	};
 })();
 

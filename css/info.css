@@ -1,7 +1,22 @@
+*:focus {
+    outline: 0;
+}
+
+* {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   user-select: none;
+}
 
 @font-face {
-  font-family: KozMinPro;
+  font-family: KozMinProM;
   src: url(../assets/KozMinPro-Medium.otf) format("opentype");
+}
+
+@font-face {
+  font-family: KozMinProH;
+  src: url(../assets/KozMinPro-Heavy.otf) format("opentype");
 }
 
 .personalPhoto{
@@ -45,21 +60,21 @@
 Text
 --------------------------*/
 .titleText{
-	font-family:KozMinPro;
+	font-family:KozMinProH;
 	font-size:35px;
 	color:#F2F2F2;
 	text-align: center;
 }
 
 .IntroText{
-	font-family:KozMinPro;
+	font-family:KozMinProH;
 	font-size:25px;
 	color:#F2F2F2;
 	line-height: 30px;
 }
 
 .ItemIntro{
-	font-family:KozMinPro;
+	font-family:KozMinProM;
 	font-size:20px;
 	color:#F2F2F2;
 	text-align: center;
