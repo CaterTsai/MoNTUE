@@ -7,7 +7,7 @@ var cTEACHER_BTN_POS = new Array(	[413, 111], [769, 111], [1125, 111], [1480, 11
 									[413, 728], [769, 728], [1125, 728], [1480, 728]
 	);
 var cTIMEOUT_CHECK_M = 1;
-var cTIMEOUT_LIMIT_M = 1;
+var cTIMEOUT_LIMIT_M = 15;
 var Main = (function()
 {
 	var _selectId = -1
@@ -71,12 +71,15 @@ var Main = (function()
 		{
 			$('#teacherBtn_' + i).attr("src", "");
 			$('#teacherBtn_' + i).off('click');
+			$('#teacherBtn_' + i).css('visibility', 'hidden');
 			$('#teacherText_' + i).empty();
 
 			if(StartId_ < EndId_)
 			{
 				var ballId_ = Math.floor(i / cTEACHER_NUM_IN_ROW) + 1;
-				$('#teacherBtn_' + i).attr("src", "assets/imgs/ball-" + ballId_.toString() + ".png");
+				$('#teacherBtn_' + i).attr("src", "assets/imgs/ball-" + ballId_.toString() + ".gif");
+				$('#teacherBtn_' + i).css('visibility', 'visible');
+
 				$('#teacherText_' + i).append(_TeacherBtnData[StartId_]['school'] + '<br><b>' + _TeacherBtnData[StartId_]['name'] + '</b> 老師');
 
 				$('#teacherBtn_' + i).on(
@@ -84,6 +87,7 @@ var Main = (function()
 					,{PosId : i, TeacherDataId : StartId_}
 					,onTeacherSelect
 				);
+
 			}
 			//$('#teacher_' + BtnId_).addClass('blowUp');
 		}
@@ -127,6 +131,7 @@ var Main = (function()
 		for(i = 0; i < cMAX_TEACHER_NUM_IN_PAGE; i++)
 		{
 			$('#teacherBtn_' + i).attr("src", "");
+			
 			$('#teacherText_' + i).empty();
 
 			if($('#teacher_' + i).hasClass('blowUp'))
@@ -228,6 +233,7 @@ var Main = (function()
 
 		setVisible('itemBtnDiv', false);
 		$('#selectImg').attr("src", "");
+		$('#selectImg').css("visibility", "hidden");
 		$('#selectTeacher').attr('style', "");
 
 		blowDownAllBtn();
@@ -241,6 +247,7 @@ var Main = (function()
 
 		setVisible('itemBtnDiv', false);
 		$('#selectImg').attr("src", "");
+		$('#selectImg').css("visibility", "hidden");
 		$('#selectTeacher').attr('style', "");
 
 
@@ -309,8 +316,12 @@ var Main = (function()
 		_selectId = event.data.PosId;
 		_selectTeacherId = event.data.TeacherDataId;
 		
+
 		$('#selectTeacher').css('left', cTEACHER_BTN_POS[_selectId][0] + 'px').css('top', cTEACHER_BTN_POS[_selectId][1] + 'px');
-		$('#selectImg').attr("src", $('#teacherBtn_' + _selectId).attr("src"));
+		var ballsrc_ = $('#teacherBtn_' + _selectId).attr("src").replace(".gif", ".png");
+
+		$('#selectImg').css("visibility", "visible");
+		$('#selectImg').attr("src", ballsrc_);
 		blowDownAllBtn();
 		
 		setVisible('CtrlBtnDiv', false);

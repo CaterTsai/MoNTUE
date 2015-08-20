@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"vi",
+				"visibility"
+			],
+			[
+				"v",
+				"visible"
+			],
+			[
 				"oBtn",
 				"onBtnClose"
 			],
@@ -33,10 +41,6 @@
 			],
 			[
 				"vis",
-				"visible"
-			],
-			[
-				"vi",
 				"visible"
 			],
 			[
@@ -212,10 +216,10 @@
 			}
 		},
 		{
-			"file": "css/basic.css",
+			"file": "css/info.css",
 			"settings":
 			{
-				"buffer_size": 2287,
+				"buffer_size": 1281,
 				"line_ending": "Windows"
 			}
 		},
@@ -223,7 +227,7 @@
 			"file": "js/main.js",
 			"settings":
 			{
-				"buffer_size": 15656,
+				"buffer_size": 15968,
 				"line_ending": "Windows"
 			}
 		},
@@ -270,7 +274,7 @@
 	[
 		"/D/xampp/htdocs/MoNTUE",
 		"/D/xampp/htdocs/MoNTUE/assets",
-		"/D/xampp/htdocs/MoNTUE/js"
+		"/D/xampp/htdocs/MoNTUE/css"
 	],
 	"file_history":
 	[
@@ -389,6 +393,11 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"src",
+			".hide();",
+			"$('#selectImg').attr(\"src\", $('#teacherBtn_' + _selectId).attr(\"src\"));",
+			"clearTeacherPage",
+			"hide",
 			"onBtnItemSelect",
 			"puase",
 			"play()",
@@ -516,39 +525,38 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 342.0,
+						"translation.y": 76.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "css/basic.css",
+					"file": "css/info.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2287,
+						"buffer_size": 1281,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2267,
-								2267
+								452,
+								452
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
-						"translation.x": 0.0,
-						"translation.y": 2205.0,
+						"translation.x": -0.0,
+						"translation.y": 783.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -557,15 +565,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15656,
+						"buffer_size": 15968,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								797,
-								797
+								5412,
+								5412
 							]
 						],
 						"settings":
@@ -574,7 +582,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 380.0,
+						"translation.y": 4159.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

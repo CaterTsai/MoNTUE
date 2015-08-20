@@ -15,6 +15,11 @@
 }
 
 @font-face {
+  font-family: KozMinProB;
+  src: url(../assets/KozMinPro-Bold.otf) format("opentype");
+}
+
+@font-face {
   font-family: KozMinProH;
   src: url(../assets/KozMinPro-Heavy.otf) format("opentype");
 }
@@ -67,10 +72,10 @@ Text
 }
 
 .IntroText{
-	font-family:KozMinProH;
-	font-size:25px;
+	font-family:KozMinProB;
+	font-size:23px;
 	color:#F2F2F2;
-	line-height: 30px;
+	line-height: 36px;
 }
 
 .ItemIntro{
